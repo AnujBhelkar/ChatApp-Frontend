@@ -37,6 +37,7 @@ class login extends Component {
       e.preventDefault();
       this.props.props.history.push("/login");
     }
+
     onHandleLogin = e => {
       var data = {
         email : this.state.email,

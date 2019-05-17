@@ -13,6 +13,7 @@ import {userRegister} from '../services/userService'
 import Card from '@material-ui/core/Card'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import Snackbar from '@material-ui/core/Snackbar'
 import "../App.css"
 class Register extends Component {
     constructor(props){
@@ -53,22 +54,88 @@ class Register extends Component {
 
 
     handleSubmit = e => {
-        var data ={
-            firstName : this.state.firstName,
-            lastName  : this.state.lastName,
-            email     : this.state.email,
-            password  : this.state.password
-        }   
-        userRegister(data)  
-        //console.log(data)
-            .then((response) => {
-                console.log(response)
-                console.log("Registration Successfully ");
+        e.preventDefault();
+
+        if(this.state.firstName.length === 0){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "First name Cannot be Empty..!!"
+            })            
+        }
+        else if(this.state.firstName.length < 3){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "First name Cannot be Less than 3 character..!!"
+            })            
+        }
+        else if(this.state.lastName.length === 0){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "Last name Cannot be Empty..!!"
+            })            
+        }
+        else if(this.state.lastName.length < 3){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "Last name Cannot be Less Than 3 character..!!"
+            })            
+        }
+        else if(this.state.email.length === 0){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "Email Cannot be Empty..!!"
+            })            
+        }
+        else if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.email)){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "Invalid Email..!!"
             })
-            .catch((err) => {
-                console.log(err)
-                console.log(" Email Already Exists ");
-            })
+        }
+        else if(this.state.password.length === 0){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "Password Cannot be Empty..!!"
+            })            
+        }
+        else if(this.state.password.length < 6){
+            this.setState({
+                openSnackBar  : true,
+                snackBarMessage : "Password length is greater than 6..!!"
+            })            
+        }
+        else{
+            var data ={
+                firstName : this.state.firstName,
+                lastName  : this.state.lastName,
+                email     : this.state.email,
+                password  : this.state.password
+            }   
+            userRegister(data)  
+            //console.log(data)
+                .then((response) => {
+                    console.log(response)
+                    this.setState({
+                        openSnackBar : true,
+                        snackBarMessage : " Registration Successfully !!",
+                    })
+                })
+                .catch((err) => {
+                    console.log(err)
+                    this.setState({
+                        openSnackBar : true,
+                        snackBarMessage : "User Already Exist !!"
+                    })
+                })
+            }    
+    }
+    /**
+     * use to auto close Snack Bar
+     */
+    handleSnackClose = () =>{
+        this.setState ({
+            openSnackBar : false
+        })
     }
 
  render() {
@@ -147,6 +214,29 @@ class Register extends Component {
                             </div>
                         </Card>
                     </div>
+                    <Snackbar
+                        anchorOrigin = { { 
+                            vertical    : 'bottom',
+                            horizontal  : 'left',
+                        }}
+                        open = {this.state.openSnackBar}
+                        autoHideDuration = {6000}
+                        onClose = {this.state.handleSnackBarClose}
+                        varient = "error"
+                        ContentProps = {{
+                                'aria-describedby' : 'message_id',
+                        } }
+                        message = {<span id = "message_id">{this.state.snackBarMessage}</span>}
+                        action = {
+                            [
+                                <div key = "undo">
+                                    <Button key = "undo" color = "primary" size = "small" onClick = {this.handleSnackClose}>
+                                        Undo
+                                    </Button>
+                                </div>
+                            ]
+                        }                        
+                    />
                 </div>        
             </form>
         </div> 

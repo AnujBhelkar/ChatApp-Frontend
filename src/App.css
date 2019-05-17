@@ -50,7 +50,7 @@
   width: 100%;
   margin-top: 3%;
   margin-left: 0%;
-  height: 350px;
+  height: 420px;
   box-shadow: 0px 1px 25px;
 }
 .login-box-header{
@@ -61,7 +61,7 @@
 .register-box-header{
   font-size: 30px;
   text-align: center;
-  padding-top : 1%;
+  padding-top : 7%;
 }
 .textUserName{
   margin-left: 11%;
@@ -90,7 +90,7 @@
   margin-top: 3%;
     margin-left: 32%;
     width: 35%;
-    height: 350px;
+    height: 420px;
     box-shadow: 0px 1px 17px ;
   
   
