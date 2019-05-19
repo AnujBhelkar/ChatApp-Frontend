@@ -1,22 +1,21 @@
 /*******************************************************************************
- * @Purpose : To create login page for login to the registered account.
- * @file    : login.jsx
+ * @Purpose : To create dashboard page for show all chats.
+ * @file    : dashboard.jsx
  * @author  : Anuj
  * @version : v0.1
- * @since   :15-05-2019
+ * @since   :18-05-2019
  *******************************************************************************/
 import React, { Component } from 'react'
-//import AppBar from '@material-ui/core/AppBar'
-import Login from '../components/login'
+import Dashboard from '../components/dashboard'
 import "../App.css"
-class login extends Component {
+class dashboard extends Component {
   render() {
     return (
       <div>    
-        <Login  props ={this.props}/> 
+        <Dashboard  props ={this.props}/> 
       </div>
     )
   }
 }
 
-export default login
+export default dashboard

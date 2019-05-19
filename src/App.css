@@ -95,3 +95,13 @@
   
   
 }
+.part1{
+  height: 100%;
+  width : 30%;
+  box-shadow: black;
+}
+part2{
+  height: 100%;
+  width : 100%;
+  box-shadow: black;
+}
