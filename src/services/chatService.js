@@ -20,10 +20,20 @@ var baseUrl = "http://localhost:5000";
  /**
  * @param {* used to get all chart data } data
  */
- export function userChartArray(data){
+ export function userChatArray(data){
     return axios( baseUrl +'/getAllUserChat',
        {
            method : 'GET',
+           data : data
+       })
+}
+ /**
+ * @param {* add message into database } data
+ */
+export function userAddMessage(data){
+    return axios( baseUrl +'/addMessage',
+       {
+           method : 'Post',
            data : data
        })
 }

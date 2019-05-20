@@ -6,7 +6,7 @@
  *****************************************************************************************/
 import React, { Component } from 'react'
 import '../App.css'
-import {chatServices, userChartArray} from '../services/chatService'
+import {chatServices, userChatArray} from '../services/chatService'
 import { AppBar, Button, TextField } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem'
 /**
@@ -44,7 +44,7 @@ export default class dashboard extends Component {
         /**
          * Get all History to display
          */
-        userChartArray()
+        userChatArray()
             .then((result) => {
                 this.setState({
                     MsgArray : result.data.result
@@ -54,14 +54,16 @@ export default class dashboard extends Component {
             .catch((error) => {
                 alert(error)
             })
-        const Sender = localStorage.getItem('Sender');
-        socket.on(Sender,(res) =>{
-            console.log("Response in dashboard ===>",res)
-            const msg = this.state.msg;
-            msg.push(res)
-            this.setState.state({msg : msg});
-            console.log("this set message is ===>", this.state.msg)
-        })
+
+                const Sender = localStorage.getItem('Sender');
+                socket.on(Sender,(res) =>{
+                console.log("Response in dashboard ===>",res)
+                const msg = this.state.msg;
+                msg.push(res)
+                this.setState({msg : msg});
+                console.log("this set message is ===>", this.state.msg)
+                })
+       
     }
         /**
          * It will take the current typed message
@@ -79,14 +81,16 @@ export default class dashboard extends Component {
              */
             const Sender =localStorage.getItem('Sender');
             this.setState({ Sender : Sender })
-            console.log('Snder is ' + Sender)
+            console.log('Sender is ' + Sender)
             console.log('Selected Receiver is ' + this.state.Receiver )
+            console.log("Message is :-" ,this.state.message)
             const data ={
                 senderId : Sender,
                 receiverId : this.state.Receiver,
                 message     : this.state.message,
             }
             socket.emit('new_msg',data);
+            console.log("All Data is ",data)
             this.setState({
                 message : '',
                 anchorE1 : null
@@ -110,80 +114,142 @@ export default class dashboard extends Component {
         
     
   render() {
-      const msg = this.state.MsgArray.map((key) => {
-        return(
-                <div>
-                    {
-                        key.senderId === localStorage.getItem('sender') ? 
-                        (
-                            key.senderId === this.state.Receiver ? 
+    //   const msg = this.state.MsgArray.map((key) => {
+    //     return(
+    //             <div>
+    //                 {
+    //                     key.senderId === localStorage.getItem('Sender') ? 
+    //                     (
+    //                         key.senderId === this.state.Receiver ? 
+    //                         (
+    //                             <div className = "sender-div">
+    //                                 <label>{key.senderId}:</label>
+    //                                 <div>{key.message}</div>
+    //                             </div>  
+    //                         )   : (null)
+    //                     )   : (null) 
+    //                 }
+    //                 {
+    //                     key.senderId === this.state.Receiver ? 
+    //                     (
+    //                         <div className = "receiver-div">
+    //                             <label>{key.senderId} : </label>
+    //                             <div>{key.message}</div>
+    //                         </div>
+    //                     ) : (null)
+    //                 }
+    //             </div>
+    //         )
+    //   })    
+    //   const loginUsers = this.state.onlineUser.map((index) => {
+    //       if(index.email !== localStorage.getItem('Sender')) {
+    //           return(
+    //               <MenuItem onClick = {(event) => this.handleClick(index,event)}>{index.email}</MenuItem>
+    //           )
+    //       }
+    //       else{
+    //           return  true;
+    //       }
+    //   })
+    //   const msgdis = this.state.msg.map((key) => {
+    //       console.log("key.senderId === this.state.senderId",key.senderId === this.state.senderId)
+    //       return(
+    //           <div>
+    //             {
+    //                 key.senderId === this.state.Sender ?
+    //                 (
+    //                     <div className = "sender-div">
+    //                         <label>{key.senderId}</label>
+    //                         <div>{key.message}</div>
+    //                     </div>
+    //                 ) : (
+    //                     <div className = "recieve-div">
+    //                         <label>{key.senderId}</label>
+    //                         <div>{key.message}</div>
+    //                     </div>
+    //                 )
+    //             }
+    //           </div>
+    //       )
+    //   })
+
+
+
+
+
+        const msg = this.state.MsgArray.map((key) => {
+            return (
+                <div >
+                    {key.senderId === localStorage.getItem('Sender') ? (
+                        key.senderId === this.state.Receiver ?
                             (
-                                <div className = "sender-div">
+                                <div className="sender-div">
                                     <label>{key.senderId}:</label>
                                     <div>{key.message}</div>
-                                </div>  
-                            )   : (null)
-                        )   : (null) 
-                    }
-                    {
-                        key.senderId === this.state.Receiver ? 
-                        (
-                            <div className = "receiver-div">
-                                <label>{key.senderId} : </label>
-                                <div>{key.message}</div>
-                            </div>
-                        ) : (null)
+                                </div>) : (null)
+                    ) : (null)}
+                    {key.senderId === this.state.Receiver ? (
+                        <div className="receiver-div">
+                            <label> {key.senderId}:</label>
+                            <div>{key.message} </div>
+                        </div>
+                    ) : (null)
                     }
                 </div>
             )
-      })
-      const LoginUsers = this.state.msg.map((key) => {
-          if(key.Email !== localStorage.getItem('sender')) {
-              return(
-                  <MenuItem onClick = {(event) => this.handleClick(key,event)}>{key.Email}</MenuItem>
-              )
-          }
-          else{
-              return  true;
-          }
-      })
-      const msgdis = this.state.msg.map((key) => {
-          console.log("key.senderId === this.state.senderId",key.senderId === this.state.senderId)
-          return(
-              <div>
-                {
-                    key.senderId === this.state.Sender ?
-                    (
-                        <div className = "sender-div">
-                            <label>{key.senderId}</label>
+        })
+        const loginUsers = this.state.onlineUser.map((key) => {
+            if (key.email !== localStorage.getItem('Sender')) {
+                return (
+                    <MenuItem onClick={(event) => this.handleClick(key, event)}>{key.email}</MenuItem>
+                )
+            }
+            else {
+                return true;
+            }
+        })
+        const msgdis = this.state.msg.map((key) => {
+            console.log(key)
+            console.log("key.senderId === this.state.senderId", key.senderId === this.state.senderId);
+            return (
+                <div>
+                    {key.senderId === this.state.Sender ?
+                        (<div className="sender-div">
+                            <label>{key.senderId}:</label>
                             <div>{key.message}</div>
-                        </div>
-                    ) : (
-                        <div className = "recieve-div">
-                            <label>{key.senderId}</label>
+                            {/* <MenuItem >{key.senderId}:{key.message}</MenuItem> */}
+                        </div>)
+                        : (<div className="receiver-div">
+                            <label>{key.senderId}:</label>
                             <div>{key.message}</div>
-                        </div>
-                    )
-                }
-              </div>
-          )
-      })
+                        </div>)
+                    }
+                </div>
+            )
+        })
+
+      console.log("messsss" , msg);
+      console.log("messsssgggge" , msgdis);
     return (
       <div>
-            <AppBar position = "static" align = "center">
+            <div className = "topHeading">                
+                <AppBar position = "static" align = "center">
                 <h1> Welcome TO Chat App</h1>
-                <Button color = "inherit" onClick = {this.handleLogout}>Logout</Button>
-            </AppBar>
+                    <div className = 'logout'>
+                        <Button color = "inherit" onClick = {this.handleLogout} >Logout</Button>
+                    </div>
+                </AppBar>
+            </div>
             <div>
-                <p><u>users</u> :- {localStorage.getItem('sender')}</p>
-                <div>
+                <div className = "userList">
+                    <p><u>User</u> :- {localStorage.getItem('Sender')}</p>
                     <label><u>User List :- </u></label>
                     <div>
-                        {LoginUsers}
+                        {loginUsers}
                     </div>
                 </div>
                 {/** Display Message on a Screen */}
-                <div>
+                <div className = "msgDisplay">
                     <center>To :- {this.state.Receiver }</center>
                     {msg}
                     {msgdis}
@@ -194,7 +260,7 @@ export default class dashboard extends Component {
                     type = "textfield"
                     value = {this.state.message}
                     placeholder = "Write a Message Here...."
-                    onChange = {this.state.handleMessage}
+                    onChange = {this.handleMessage}
                     variant = "filled"
                     InputProps = {{
                         disableUnderline : true

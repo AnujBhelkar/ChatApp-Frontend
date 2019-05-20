@@ -105,3 +105,36 @@ part2{
   width : 100%;
   box-shadow: black;
 }
+.sender-div{
+  margin-left: 620px;
+  background-color: blueviolet;
+  border-radius: 20px;
+  width: 190px;
+  padding: 10px;
+  margin-bottom: 10px
+}
+.receiver-div{
+  background-color: red ;
+  border-radius: 20px;
+  width: 190px;
+  padding: 10px;
+  margin-bottom: 10px
+}
+.logout {
+  margin-left: 80%
+}
+/* .topHeading{
+
+} */
+.userList{
+  width: 20%;
+}
+.msgDisplay{
+    margin-top: -15.5%;
+    margin-left: 34%;
+    width: 100%;
+    border:2px solid rgb(45, 11, 238);
+    width: 826px;
+    height: 455px;
+    overflow: auto;
+}
