@@ -109,19 +109,28 @@ part2{
   margin-left: 620px;
   background-color: blueviolet;
   border-radius: 20px;
-  width: 190px;
+  width: 20%;
   padding: 10px;
-  margin-bottom: 10px
+  margin-bottom: 10px;
+  word-wrap: break-word;
 }
 .receiver-div{
   background-color: red ;
   border-radius: 20px;
-  width: 190px;
+  width: 25%;
   padding: 10px;
-  margin-bottom: 10px
+  margin-bottom: 10px;
+  word-wrap: break-word;
 }
 .logout {
-  margin-left: 80%
+  margin-left: 80%;
+  top: 35px;
+  position: absolute;
+  left: 11%;
+  background: white;
+  color: chocolate;
+  border-radius: 10px;
+  
 }
 /* .topHeading{
 
@@ -130,11 +139,26 @@ part2{
   width: 20%;
 }
 .msgDisplay{
-    margin-top: -15.5%;
-    margin-left: 34%;
-    width: 100%;
-    border:2px solid rgb(45, 11, 238);
-    width: 826px;
-    height: 455px;
-    overflow: auto;
+  margin-top: -15.5%;
+  margin-left: 31%;
+  width: 100%;
+  border:2px solid rgb(45, 11, 238);
+  width: 826px;
+  height: 455px;
+  overflow: auto;
+}
+.sendDiv{
+  width: 28%;
+  /* align-items: center; */
+  margin-left: 50%;
+}
+.containerButton{
+  float: left;;
+  padding-top: 7%
+}
+.sendButton{
+  padding-top: 10%;
+}
+.appDiv{
+  height: 79px;
 }

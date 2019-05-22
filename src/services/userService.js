@@ -21,6 +21,5 @@ export function userRegister(data){
  */
 
 export function userLogin(data){
-    console.log("data in services ",data)
     return axios.post(baseUrl+'/login',data);
 }
